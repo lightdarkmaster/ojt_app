@@ -276,9 +276,17 @@ class _NotesPageState extends State<NotesPage> {
                           color: moodColors[note.mood],
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        child: Text(
-                          moodEmoji[note.mood] ?? '😐',
-                          style: const TextStyle(fontSize: 20),
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black45),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Text(
+                            moodEmoji[note.mood] ?? '😐',
+                            style: const TextStyle(fontSize: 20),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -381,25 +389,26 @@ class _NotesPageState extends State<NotesPage> {
       ),
     );
   }
-  
+
   Future<void> _deleteAllNotes() async {
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete All Notes'),
-        content: const Text('Are you sure you want to delete all notes?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Delete All Notes'),
+            content: const Text('Are you sure you want to delete all notes?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context, true),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: const Text('Delete'),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
     );
 
     if (confirmed == true) {
