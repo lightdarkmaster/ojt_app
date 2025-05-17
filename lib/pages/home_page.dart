@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ojt_app/pages/my_notes.dart';
 import 'package:ojt_app/pages/ojt_hourSolver.dart';
+import 'package:ojt_app/pages/ojt_introduction.dart';
+import 'package:ojt_app/pages/ojt_motivation.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,13 +17,15 @@ class _HomePageState extends State<HomePage> {
 
     switch (index) {
       case 0:
-        page = const HourSolver();
+        page = const Introduction();
         break;
       case 1:
         page = const NotesPage();
         break;
       case 2:
         page = const HourSolver();
+      case 3:
+        page = const Motivation();
         break;
       default:
         return;
@@ -39,26 +43,57 @@ class _HomePageState extends State<HomePage> {
       {
         'icon': Icons.school,
         'title': 'OJT',
-        'subtitle': 'View and manage your OJT progress',
+        'subtitle': 'My tapestry of first steps and silent triumphs, where learning meets life in the poetry of experience.',
       },
       {
         'icon': Icons.notes,
-        'title': 'My Notes',
-        'subtitle': 'Notes related to OJT',
+        'title': 'My Diaries',
+        'subtitle': 'My whispered echoes of the soul, where silent ink cradles the loudest truths of the heart.',
       },
       {
         'icon': Icons.calculate,
         'title': 'Hour Solver',
         'subtitle': 'Estimate remaining hours and days',
       },
+      {
+        'icon': Icons.book_outlined,
+        'title': 'Daily Motivation',
+        'subtitle': 'Each day is a blank page — rise, write boldly, and let your actions be the ink of your ambition.',
+      },
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OJT App'),
+        title: const Text('InternDiaries'),
         backgroundColor: const Color.fromARGB(225, 255, 82, 82),
         foregroundColor: Colors.white,
         elevation: 2,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('About InternDiaries'),
+                    content: const Text(
+                      'InternDiaries is a personal digital journal for OJT students. It is a space to record your thoughts, feelings, and experiences throughout your internship. Feel free to add notes, track your hours, and stay motivated!',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
