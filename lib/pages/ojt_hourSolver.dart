@@ -16,95 +16,167 @@ class _HourSolverState extends State<HourSolver> {
 
   void _calculateHours() {
     const totalHours = 486.0;
-    double renderedhours = double.tryParse(_hoursController.text) ?? 0.0;
-    if (renderedhours == 0) {
+    double renderedHours = double.tryParse(_hoursController.text) ?? 0.0;
+    if (renderedHours == 0) {
       _estimatedDate = DateTime.now();
     } else {
-      _remainingHours = totalHours - renderedhours;
+      _remainingHours = totalHours - renderedHours;
       _remainingDays = _remainingHours / 8;
-      final remainingDays = _remainingHours / 8;
-      _estimatedDate = DateTime.now().add(Duration(days: remainingDays.round()));
+      _estimatedDate =
+          DateTime.now().add(Duration(days: _remainingDays.round()));
     }
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            );
-          },
-        ),
-        title: const Text('OJT App'),
-        backgroundColor: const Color.fromARGB(225, 255, 82, 82),
+        title: const Text('OJT Progress Tracker'),
+        backgroundColor:const Color.fromARGB(225, 255, 82, 82),
         foregroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: const Text(
-                  'Rendered Hours',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                ),
-              ),
-              TextField(
-                controller: _hoursController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Enter hours',
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16.0),
-              Center(
-                child: ElevatedButton(
-                  onPressed: _calculateHours,
-                  child: const Text('Calculate'),
-                ),
-              ),
-              Center(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'Note: Assuming You will render 8 hours per day',
-                      style: const TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic),
-                    ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(15.0),
+        child: Center(
+          child: Card(
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            color: theme.colorScheme.surface,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Rendered Hours',
+                    style: theme.textTheme.titleMedium!
+                        .copyWith(fontWeight: FontWeight.w600),
                   ),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              Center(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        'Remaining Hours: ${_remainingHours.toStringAsFixed(2)} hours\n'
-                        'Remaining Days: ${_remainingDays.round()} Day/s\n'
-                        'Estimated finish date: ${DateFormat('MMMM dd, yyyy').format(_estimatedDate)}',
-                        style: const TextStyle(fontSize: 16.0, color: Colors.blue),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: _hoursController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter your rendered hours',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      prefixIcon: const Icon(Icons.access_time),
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton.icon(
+                      icon: const Icon(Icons.calculate),
+                      label: const Text('Calculate'),
+                      onPressed: _calculateHours,
+                      style: FilledButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: const Color.fromARGB(225, 255, 82, 82),
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(height: 28),
+                  Card(
+                    color: theme.colorScheme.surface,
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'Note:',
+                            style: theme.textTheme.titleSmall!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Assuming you have 8 working hours per day.',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  if (_hoursController.text.isNotEmpty)
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade50,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _infoRow(
+                            icon: Icons.timer_outlined,
+                            label: 'Remaining Hours',
+                            value:
+                                '${_remainingHours.toStringAsFixed(2)} hour/s',
+                          ),
+                          const SizedBox(height: 8),
+                          _infoRow(
+                            icon: Icons.calendar_today,
+                            label: 'Remaining Days',
+                            value: '${_remainingDays.round()} day/s',
+                          ),
+                          const SizedBox(height: 8),
+                          _infoRow(
+                            icon: Icons.event_available,
+                            label: 'End Date',
+                            value: DateFormat('MMMM dd, yyyy')
+                                .format(_estimatedDate),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
+  Widget _infoRow({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, size: 20, color: Colors.blue),
+        const SizedBox(width: 8),
+        Text(
+          '$label: ',
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: const TextStyle(color: Colors.black87),
+          ),
+        ),
+      ],
+    );
+  }
+}
