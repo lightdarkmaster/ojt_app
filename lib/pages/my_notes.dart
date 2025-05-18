@@ -82,7 +82,7 @@ class _NotesPageState extends State<NotesPage> {
                     width: double.infinity,
                     alignment: Alignment.center,
                     child: Text(
-                      isEditing ? '✏️ Edit Note' : '📝 Add New Note',
+                      isEditing ? '✏️ Edit Diary' : '📝 Add New Diary',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class _NotesPageState extends State<NotesPage> {
                     controller: _bodyController,
                     maxLines: 4,
                     decoration: InputDecoration(
-                      labelText: 'Note Details',
+                      labelText: 'Diary Details',
                       prefixIcon: const Icon(Icons.notes),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -204,8 +204,8 @@ class _NotesPageState extends State<NotesPage> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Delete Note'),
-            content: const Text('Are you sure you want to delete this note?'),
+            title: const Text('Delete Diary'),
+            content: const Text('Are you sure you want to delete this diary?'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
@@ -356,7 +356,7 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Notes'),
+        title: const Text('My Diaries'),
         backgroundColor: const Color(0xFFEF5350),
         foregroundColor: Colors.white,
         elevation: 2,
@@ -372,7 +372,7 @@ class _NotesPageState extends State<NotesPage> {
           _notes.isEmpty
               ? Center(
                 child: Text(
-                  'No notes yet.\nTap the + button to add one!',
+                  'No diaries yet.\nTap the + button to add one nigga!',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
@@ -383,7 +383,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _addOrUpdateNote(),
-        label: const Text('Add Note', style: TextStyle(color: Colors.white)),
+        label: const Text('Add Diary', style: TextStyle(color: Colors.white)),
         icon: const Icon(Icons.add, color: Colors.white),
         backgroundColor: const Color(0xFFEF5350),
       ),
@@ -395,8 +395,8 @@ class _NotesPageState extends State<NotesPage> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Delete All Notes'),
-            content: const Text('Are you sure you want to delete all notes?'),
+            title: const Text('Delete All Diaries'),
+            content: const Text('Are you sure you want to delete all diaries?'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
