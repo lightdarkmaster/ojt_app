@@ -14,3 +14,9 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+#About the App:
+1. This app is all about the ojt internship
+2. Diary taking,
+3. Hour Solver
+4. Daily Motivation.
