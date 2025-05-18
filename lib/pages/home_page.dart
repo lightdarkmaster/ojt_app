@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ojt_app/pages/about_app.dart';
 import 'package:ojt_app/pages/my_notes.dart';
 import 'package:ojt_app/pages/ojt_hourSolver.dart';
 import 'package:ojt_app/pages/ojt_introduction.dart';
@@ -26,6 +27,8 @@ class _HomePageState extends State<HomePage> {
         page = const HourSolver();
       case 3:
         page = const Motivation();
+      case 4:
+        page = const AboutApp();
         break;
       default:
         return;
@@ -60,6 +63,11 @@ class _HomePageState extends State<HomePage> {
         'title': 'Daily Motivation',
         'subtitle': 'Each day is a blank page — rise, write boldly, and let your actions be the ink of your ambition.',
       },
+      {
+        'icon': Icons.info_rounded,
+        'title': 'About The App',
+        'subtitle': 'About InternDiaries',
+      },
     ];
 
     return Scaffold(
@@ -77,8 +85,24 @@ class _HomePageState extends State<HomePage> {
                 builder: (context) {
                   return AlertDialog(
                     title: const Text('About InternDiaries'),
-                    content: const Text(
-                      'InternDiaries is a personal digital journal for OJT students. It is a space to record your thoughts, feelings, and experiences throughout your internship. Feel free to add notes, track your hours, and stay motivated!',
+                    content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'InternDiaries is a personal digital journal for OJT students. It is a space to record your thoughts, feelings, and experiences throughout your internship. Feel free to add diaries, track your hours, and stay motivated!',
+                        ),
+                        const Text("\n -Christian Barbosa, 2025",
+                          style: TextStyle(
+                            fontSize:16,
+                            color: Color.fromARGB(255, 201, 91, 91),
+                          ),
+                        ),
+                      ],
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 255, 246, 246),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     actions: [
                       TextButton(

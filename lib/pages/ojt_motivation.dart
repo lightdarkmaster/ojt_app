@@ -15,6 +15,10 @@ class _MotivationState extends State<Motivation> {
     "Every challenge is a chance to rise higher.",
     "Small progress is still progress. Keep going.",
     "Start with purpose, move with passion, end with pride.",
+    "Faith is love taking the form of aspiration \n-William Ellery Channing",
+    "You can't cross the sea merely by standing and staring at the water.",
+    "No bird soars too high if he soars with his own wings.",
+    "Don't judge each day by the harvest you reap but by the seeds that you plant.",
   ];
 
   @override
@@ -55,7 +59,10 @@ class _MotivationState extends State<Motivation> {
               ],
             ),
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 16,
+              ),
               leading: const Icon(Icons.format_quote, color: Colors.deepPurple),
               title: Text(
                 motivationalSpeeches[index],

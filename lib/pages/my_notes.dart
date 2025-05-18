@@ -214,7 +214,7 @@ class _NotesPageState extends State<NotesPage> {
               ElevatedButton(
                 onPressed: () => Navigator.pop(context, true),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: const Text('Delete'),
+                child: const Text('Delete', style: TextStyle(color: Colors.white),),
               ),
             ],
           ),
@@ -405,7 +405,7 @@ class _NotesPageState extends State<NotesPage> {
               ElevatedButton(
                 onPressed: () => Navigator.pop(context, true),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: const Text('Delete'),
+                child: const Text('Delete', style: TextStyle(color: Colors.white)),
               ),
             ],
           ),

@@ -66,6 +66,7 @@ flutter:
     - assets/images/img2.gif
     - assets/images/img3.gif
     - assets/images/img4.gif
+    - assets/images/img5.JPG
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
