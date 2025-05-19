@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class HourSolver extends StatefulWidget {
   const HourSolver({super.key});
@@ -22,8 +23,9 @@ class _HourSolverState extends State<HourSolver> {
     } else {
       _remainingHours = totalHours - renderedHours;
       _remainingDays = _remainingHours / 8;
-      _estimatedDate =
-          DateTime.now().add(Duration(days: _remainingDays.round()));
+      _estimatedDate = DateTime.now().add(
+        Duration(days: _remainingDays.round()),
+      );
     }
     setState(() {});
   }
@@ -35,7 +37,7 @@ class _HourSolverState extends State<HourSolver> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('OJT Progress Tracker'),
-        backgroundColor:const Color.fromARGB(225, 255, 82, 82),
+        backgroundColor: const Color.fromARGB(225, 255, 82, 82),
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -55,8 +57,9 @@ class _HourSolverState extends State<HourSolver> {
                 children: [
                   Text(
                     'Rendered Hours',
-                    style: theme.textTheme.titleMedium!
-                        .copyWith(fontWeight: FontWeight.w600),
+                    style: theme.textTheme.titleMedium!.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   TextField(
@@ -97,8 +100,9 @@ class _HourSolverState extends State<HourSolver> {
                         children: [
                           Text(
                             'Note:',
-                            style: theme.textTheme.titleSmall!
-                                .copyWith(fontWeight: FontWeight.w600),
+                            style: theme.textTheme.titleSmall!.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           const SizedBox(height: 4),
                           const Text(
@@ -141,12 +145,57 @@ class _HourSolverState extends State<HourSolver> {
                           _infoRow(
                             icon: Icons.event_available,
                             label: 'End Date',
-                            value: DateFormat('MMMM dd, yyyy')
-                                .format(_estimatedDate),
+                            value: DateFormat(
+                              'MMMM dd, yyyy',
+                            ).format(_estimatedDate),
                           ),
                         ],
                       ),
                     ),
+                  const SizedBox(height: 24),
+                  if (_hoursController.text.isNotEmpty)
+                    SfCalendar(
+                      view: CalendarView.month,
+                      initialDisplayDate: _estimatedDate,
+                      initialSelectedDate: _estimatedDate,
+                      monthViewSettings: MonthViewSettings(
+                        showTrailingAndLeadingDates: true,
+                        monthCellStyle: MonthCellStyle(
+                          backgroundColor: Colors.blue.shade50,
+                          todayBackgroundColor: Colors.blue.shade100,
+                          leadingDatesBackgroundColor: Colors.grey.shade200,
+                          trailingDatesBackgroundColor: Colors.grey.shade200,
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          leadingDatesTextStyle: TextStyle(
+                            color: Colors.redAccent,
+                          ),
+                          trailingDatesTextStyle: TextStyle(
+                            color: const Color.fromARGB(255, 75, 172, 125),
+                          ),
+                        ),
+                        agendaStyle: AgendaStyle(
+                          backgroundColor: Colors.white,
+                          appointmentTextStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          dateTextStyle: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          dayTextStyle: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
@@ -166,15 +215,9 @@ class _HourSolverState extends State<HourSolver> {
       children: [
         Icon(icon, size: 20, color: Colors.blue),
         const SizedBox(width: 8),
-        Text(
-          '$label: ',
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+        Text('$label: ', style: const TextStyle(fontWeight: FontWeight.bold)),
         Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(color: Colors.black87),
-          ),
+          child: Text(value, style: const TextStyle(color: Colors.black87)),
         ),
       ],
     );
