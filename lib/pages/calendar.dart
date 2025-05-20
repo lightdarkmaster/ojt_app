@@ -103,3 +103,5 @@ class Meeting {
   bool isAllDay;
 }
 
+//Not usable I'm still thinking if I will continue this..
+
