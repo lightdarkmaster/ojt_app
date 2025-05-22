@@ -2,25 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class Calendar extends StatefulWidget {
-  const Calendar({super.key});
+class CalendarPage extends StatefulWidget {
+  const CalendarPage({super.key});
 
   @override
-  State<Calendar> createState() => _CalendarState();
+  State<CalendarPage> createState() => _CalendarPageState();
 }
 
-class _CalendarState extends State<Calendar> {
+class _CalendarPageState extends State<CalendarPage> {
   final CalendarController _controller = CalendarController();
 
   @override
   Widget build(BuildContext context) {
-    return SfCalendar(
-      view: CalendarView.month,
-      dataSource: MeetingDataSource(_getDataSource()),
-      monthViewSettings: MonthViewSettings(
-        showTrailingAndLeadingDates: false,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Calendar'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.today),
+            onPressed: () {
+              _controller.displayDate = DateTime.now();
+            },
+          ),
+        ],
       ),
-      controller: _controller,
+      body: SfCalendar(
+        view: CalendarView.month,
+        dataSource: MeetingDataSource(_getDataSource()),
+        monthViewSettings: const MonthViewSettings(
+          showTrailingAndLeadingDates: false,
+        ),
+        controller: _controller,
+        headerHeight: 0,
+        viewHeaderHeight: 40,
+        viewHeaderStyle: const ViewHeaderStyle(
+          backgroundColor: Colors.grey,
+          dateTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
+        cellEndPadding: 5,
+        // cellStartPadding: 5,
+        selectionDecoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.blue,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        todayHighlightColor: Colors.blue,
+        todayTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+        ),
+      ),
     );
   }
 
@@ -102,6 +139,4 @@ class Meeting {
   Color background;
   bool isAllDay;
 }
-
-//Not usable I'm still thinking if I will continue this..
 
